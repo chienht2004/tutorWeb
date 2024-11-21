@@ -1,0 +1,390 @@
+<!doctype html>
+<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Courses | Education</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/assets/img/favicon.ico}">
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/assets/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/assets/css/owl.carousel.min.css}" rel="stylesheet">
+    <link th:href="@{/assets/css/slicknav.css}" rel="stylesheet">
+    <link th:href="@{/assets/css/flaticon.css}" rel="stylesheet">
+    <link th:href="@{/assets/css/progressbar_barfiller.css}" rel="stylesheet">
+    <link th:href="@{/assets/css/gijgo.css}" rel="stylesheet">
+    <link th:href="@{/assets/css/animate.min.css}" rel="stylesheet">
+    <link th:href="@{/assets/css/animated-headline.css}" rel="stylesheet">
+    <link th:href="@{/assets/css/magnific-popup.css}" rel="stylesheet">
+    <link th:href="@{/assets/css/fontawesome-all.min.css}" rel="stylesheet">
+    <link th:href="@{/assets/css/themify-icons.css}" rel="stylesheet">
+    <link th:href="@{/assets/css/slick.css}" rel="stylesheet">
+    <link th:href="@{/assets/css/nice-select.css}" rel="stylesheet">
+    <link th:href="@{/assets/css/style.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .pagination {
+            font-size: 32px;
+            justify-content: flex-end;
+        }
+
+        .page-link {
+            font-size: 18px;
+            padding: 10px 20px;
+        }
+
+        .function {
+            display: flex;
+            justify-content: space-between;
+        }
+        .bookmarked {
+            color:  rgb(255, 159, 103);
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- ? Preloader Start -->
+<div id="preloader-active">
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="preloader-inner position-relative">
+            <div class="preloader-circle"></div>
+            <div class="preloader-img pere-text">
+                <img th:src="@{/assets/img/logo/loder.png}" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Preloader End -->
+
+<!-- Header Start -->
+<div class="header-area header-transparent">
+    <div class="main-header ">
+        <div class="header-bottom  header-sticky">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <!-- Logo -->
+                    <div class="col-xl-2 col-lg-2">
+                        <div class="logo">
+                            <a th:href="@{/home}"><img th:src="@{/assets/img/logo/logo.png}" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="col-xl-10 col-lg-10">
+                        <div class="menu-wrapper d-flex align-items-center justify-content-end">
+                            <!-- Main-menu -->
+                            <div class="main-menu d-none d-lg-block">
+                                <nav>
+                                    <ul id="navigation">
+                                        <li class="active"><a th:href="@{/home}">Home</a></li>
+                                        <li><a th:href="@{/home/courses}">Courses</a></li>
+                                        <li><a th:href="@{/home/about}">About</a></li>
+                                        <li><a th:href="@{/home/blog}">Blog</a></li>
+                                        <li><a th:href="@{/home/contact}">Contact</a></li>
+                                        <li class="button-header margin-left" th:if="${!isAuthenticated}">
+                                            <a th:href="@{/login}" class="btn">Login</a>
+                                        </li>
+                                        <li class="button-header" th:if="${!isAuthenticated}">
+                                            <a th:href="@{/register}" class="btn btn3">Register</a>
+                                        </li>
+                                        <li th:if="${isAuthenticated}" style="color: white">
+                                            <img th:src="${user.getProfileImage() != null ? user.getProfileImage() : '/assets/img/avatar/avatar_default.png'}"
+                                                 alt="Profile Picture"
+                                                 style="margin-bottom: 5px; width: 35px; height: 35px; border-radius: 50%; object-fit: cover;">
+
+                                            <ul class="submenu">
+                                                <li><a th:href="@{/all/profile}">Profile</a></li>
+                                                <li><a th:href="@{/all/class}">Class</a></li>
+                                                <li><a th:href="@{/all/class/saved}" th:if="${user.getRole()=='ROLE_TUTOR'}">Saved Class</a></li>
+                                                <li><a th:href="@{/logout}">Log out</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Mobile Menu -->
+                    <div class="col-12">
+                        <div class="mobile_menu d-block d-lg-none"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Header End -->
+
+<main>
+    <!--? slider Area Start-->
+    <section class="slider-area slider-area2">
+        <div class="slider-active">
+            <!-- Single Slider -->
+            <div class="single-slider slider-height2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-8 col-lg-11 col-md-12">
+                            <div class="hero__caption hero__caption2">
+                                <h1 data-animation="bounceIn" data-delay="0.2s">Class</h1>
+                                <!-- breadcrumb Start-->
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a th:href="@{/home}">Home</a></li>
+                                        <li class="breadcrumb-item"><a th:href="@{/home/courses/detail}">Class</a></li>
+                                    </ol>
+                                </nav>
+                                <!-- breadcrumb End -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--? top subjects Area Start -->
+    <div class="courses-area section-padding40 fix">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-7 col-lg-8">
+                    <div class="section-tittle text-center mb-55">
+                        <h2>Unregistered classes</h2>
+                        <button type="button" class="btn btn-outline-danger" style="border-color: black; color: black;"  onclick="location.href='/student/class/add'">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"></path>
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"></path>
+                            </svg>
+                            ADD CLASS
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 20px">
+                <form action="#" method="get">
+                    <div class="function">
+                        <div style="display: flex; height: 40px; width: 150px">
+                            <form method="GET" action="/home/courses/detail">
+                                    <select class="form-control" id="subjectId" name="subjectId" onchange="this.form.submit()" >
+                                        <option value="" th:selected="${subjectId == null or subjectId == ''}">All Subjects</option>
+                                        <option th:each="subject : ${subjects}"
+                                                th:value="${subject.getSubjectId()}"
+                                                th:text="${subject.getSubjectName()}"
+                                                th:selected="${subjectId == subject.getSubjectId()}">
+                                        </option>
+                                    </select>
+                            </form>
+
+                        </div>
+                        <div class="search" style="display: flex; width: 400px; height: 40px; margin-left: 100px">
+                            <form class="form-inline my-2 my-lg-0">
+                                <input class="form-control mr-sm-2" type="search" name="address"
+                                       placeholder="Enter address" aria-label="Search" th:value="${address}" style="height: 40px; width: 250px">
+                                <button type="submit" style="display: inline-block; height: 40px; width: 80px; color: black; background-color: white; border: 1px solid black; border-radius: 5px">Search</button>
+                            </form>
+                        </div>
+                        <div class="sort">
+                            <select name="sortBy" th:onchange="this.form.submit()">
+                                <option value="priceAsc" th:selected="${sortBy == 'priceAsc'}">Price Ascending</option>
+                                <option value="priceDesc" th:selected="${sortBy == 'priceDesc'}">Price Descending
+                                </option>
+                                <option value="postDateAsc" th:selected="${sortBy == 'postDateAsc'}">Post Date
+                                    Ascending
+                                </option>
+                                <option value="postDateDesc" th:selected="${sortBy == 'postDateDesc'}">Post Date
+                                    Descending
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="row">
+                <div class="col-lg-4" th:each="c:${classes}">
+                    <div class="properties properties2 mb-30">
+                        <div class="properties__card">
+                            <div class="properties__caption"  style="height: 220px">
+                                <h3 style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+                                    <div style="display: flex; align-items: center;">
+                                        <i class="bi bi-book" style="margin-right: 8px"></i>
+                                        <span>Class: </span>
+                                        <span th:text="${c.getSubjectId().getSubjectName()}"
+                                              style="font-size: 18px; font-weight: normal; color: #3f51b5"></span>
+                                    </div>
+                                    <i th:if="${user!=null&&user.getRole().equals('ROLE_TUTOR')}" class="far fa-bookmark bookmark-icon" th:data-class-id="${c.getClassId()}" role="button" onclick="toggleBookmark(this)"></i>
+
+                                </h3>
+                                <h3 style="margin-bottom: 12px">
+                                    <i class="bi bi-mortarboard" style="margin-right: 8px"></i>
+                                    <span>Grade: </span>
+                                    <span th:text="${c.getGrade()}"
+                                          style="font-size: 18px; font-weight: normal; color: #3f51b5"></span>
+                                </h3>
+                                <h3 style="margin-bottom: 12px">
+                                    <i class="bi bi-geo-alt" style="margin-right: 8px"></i>
+                                    <span>Address: </span>
+                                    <span th:text="${c.getAddress()}"
+                                          style="font-size: 18px; font-weight: normal; color: #3f51b5"></span>
+                                </h3>
+                                <h3 style="margin-bottom: 12px">
+                                    <i class="bi bi-wallet" style="margin-right: 8px"></i>
+                                    <span>Price: </span>
+                                    <span th:text="${c.getPrice() + ' $'}"
+                                          style="font-size: 18px; font-weight: normal; color: #3f51b5"></span>
+                                </h3>
+                            </div>
+                            <a th:href="@{/tutor/class(id=${c.getClassId()})}"
+                               class="border-btn border-btn2">Detail</a>
+                        </div>
+                    </div>
+                </div>
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        <li class="page-item" th:classappend="${classes.first} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/home/courses/detail(page=${classes.number - 1}, size=${classes.size})}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item"
+                            th:each="i : ${#numbers.sequence(classes.number > 2 ? classes.number - 2 : 0,
+                                                classes.number < classes.totalPages - 3 ? classes.number + 2 : classes.totalPages - 1)}"
+                            th:classappend="${i == classes.number} ? 'active'">
+                            <a class="page-link" th:href="@{/home/courses/detail(page=${i}, size=${classes.size})}"
+                               th:text="${i + 1}">1</a>
+                        </li>
+                        <li class="page-item" th:classappend="${classes.last} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/home/courses/detail(page=${classes.number + 1}, size=${classes.size})}"
+                               aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+        </div>
+    </div>
+    <!-- top subjects End -->
+</main>
+
+<footer>
+    <div class="footer-wrappper footer-bg">
+        <!-- Footer Start-->
+        <div class="footer-area footer-padding">
+            <div class="container">
+                <div class="row justify-content-between">
+                    <div class="col-xl-4 col-lg-5 col-md-4 col-sm-6">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-logo mb-25">
+                                <a th:href="@{/home}"><img th:src="@{/assets/img/logo/logo2_footer.png}" alt=""></a>
+                            </div>
+                            <div class="footer-tittle">
+                                <div class="footer-pera">
+                                    <p>The automated process starts as soon as your clothes go into the machine.</p>
+                                </div>
+                            </div>
+                            <div class="footer-social">
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="https://bit.ly/sai4ull"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Add more footer sections as needed -->
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let savedClasses = getCookie("savedClasses");
+        if (savedClasses) {
+            let savedClassIds = savedClasses.split("."); // Tách bằng dấu '.'
+            document.querySelectorAll(".bookmark-icon").forEach(icon => {
+                if (savedClassIds.includes(icon.getAttribute("data-class-id"))) {
+                    icon.classList.remove("far");
+                    icon.classList.add("fas");
+                    icon.style.color = "rgb(255, 159, 103)";
+                }
+            });
+        }
+    });
+
+    function toggleBookmark(icon) {
+        const classId = icon.getAttribute("data-class-id");
+        let savedClasses = getCookie("savedClasses");
+        savedClasses = savedClasses ? savedClasses.split(".") : [];
+
+        if (savedClasses.includes(classId)) {
+            savedClasses = savedClasses.filter(id => id !== classId);
+            icon.classList.remove("fas");
+            icon.classList.add("far");
+            icon.style.color = "";
+        } else {
+            savedClasses.push(classId);
+            icon.classList.remove("far");
+            icon.classList.add("fas");
+            icon.style.color = "rgb(255, 159, 103)";
+        }
+
+        const expires = new Date();
+        expires.setTime(expires.getTime() + (30 * 24 * 60 * 60 * 1000));
+        document.cookie = "savedClasses=" + savedClasses.join(".") + "; path=/; expires=" + expires.toUTCString();
+    }
+
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return null;
+    }
+</script>
+
+<script th:if="${message != null}">
+    window.addEventListener('load', function() {
+        alert("[[${message}]]");
+    });
+</script>
+<!-- JS here -->
+<script th:src="@{/assets/js/vendor/modernizr-3.5.0.min.js}"></script>
+<script th:src="@{/assets/js/vendor/jquery-1.12.4.min.js}"></script>
+<script th:src="@{/assets/js/popper.min.js}"></script>
+<script th:src="@{/assets/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/js/jquery.slicknav.min.js}"></script>
+<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
+<script th:src="@{/assets/js/slick.min.js}"></script>
+<script th:src="@{/assets/js/wow.min.js}"></script>
+<script th:src="@{/assets/js/animated.headline.js}"></script>
+<script th:src="@{/assets/js/jquery.magnific-popup.js}"></script>
+<script th:src="@{/assets/js/jquery.nice-select.min.js}"></script>
+<script th:src="@{/assets/js/jquery.sticky.js}"></script>
+<script th:src="@{/assets/js/jquery.barfiller.js}"></script>
+<script th:src="@{/assets/js/jquery.counterup.min.js}"></script>
+<script th:src="@{/assets/js/waypoints.min.js}"></script>
+<script th:src="@{/assets/js/jquery.countdown.min.js}"></script>
+<script th:src="@{/assets/js/hover-direction-snake.min.js}"></script>
+<script th:src="@{/assets/js/contact.js}"></script>
+<script th:src="@{/assets/js/jquery.form.js}"></script>
+<script th:src="@{/assets/js/jquery.validate.min.js}"></script>
+<script th:src="@{/assets/js/mail-script.js}"></script>
+<script th:src="@{/assets/js/jquery.ajaxchimp.min.js}"></script>
+<script th:src="@{/assets/js/plugins.js}"></script>
+<script th:src="@{/assets/js/main.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,372 @@
+<!doctype html>
+<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Courses | Education</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/assets/img/favicon.ico}">
+
+    <!-- CSS here -->
+    <link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/slicknav.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/progressbar_barfiller.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/gijgo.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/animate.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/animated-headline.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/magnific-popup.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/fontawesome-all.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/themify-icons.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/slick.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/nice-select.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+</head>
+
+<body>
+<!-- Preloader Start -->
+<div id="preloader-active">
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="preloader-inner position-relative">
+            <div class="preloader-circle"></div>
+            <div class="preloader-img pere-text">
+                <img th:src="@{/assets/img/logo/loder.png}" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Preloader End -->
+
+<header>
+    <!-- Header Start -->
+    <div class="header-area header-transparent">
+        <div class="main-header">
+            <div class="header-bottom header-sticky">
+                <div class="container-fluid">
+                    <div class="row align-items-center">
+                        <!-- Logo -->
+                        <div class="col-xl-2 col-lg-2">
+                            <div class="logo">
+                                <a th:href="@{/home}"><img th:src="@{/assets/img/logo/logo.png}" alt=""></a>
+                            </div>
+                        </div>
+                        <div class="col-xl-10 col-lg-10">
+                            <div class="menu-wrapper d-flex align-items-center justify-content-end">
+                                <!-- Main-menu -->
+                                <div class="main-menu d-none d-lg-block">
+                                    <nav>
+                                        <ul id="navigation">
+                                            <li class="active"><a th:href="@{/home}">Home</a></li>
+                                            <li><a th:href="@{/home/courses}">Courses</a></li>
+                                            <li><a th:href="@{/home/about}">About</a></li>
+                                            <li><a th:href="@{/home/blog}">Blog</a></li>
+                                            <li><a th:href="@{/home/contact}">Contact</a></li>
+                                            <li class="button-header margin-left" th:if="${!isAuthenticated}">
+                                                <a th:href="@{/login}" class="btn">Login</a>
+                                            </li>
+                                            <li class="button-header" th:if="${!isAuthenticated}">
+                                                <a th:href="@{/register}" class="btn btn3">Register</a>
+                                            </li>
+                                            <li th:if="${isAuthenticated}" style="color: white">
+                                                <img th:src="${user.getProfileImage() != null ? user.getProfileImage() : '/assets/img/avatar/avatar_default.png'}"
+                                                     alt="Profile Picture"
+                                                     style="margin-bottom: 5px; width: 35px; height: 35px; border-radius: 50%; object-fit: cover;">
+
+                                                <ul class="submenu">
+                                                    <li><a th:href="@{/all/profile}">Profile</a></li>
+                                                    <li><a th:href="@{/all/class}">Class</a></li>
+                                                    <li><a th:href="@{/all/class/saved}" th:if="${user.getRole()=='ROLE_TUTOR'}">Saved Class</a></li>
+                                                    <li><a th:href="@{/logout}">Log out</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Mobile Menu -->
+                        <div class="col-12">
+                            <div class="mobile_menu d-block d-lg-none"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+</header>
+<!-- Header End -->
+<main>
+    <!-- Slider Area Start -->
+    <section class="slider-area slider-area2">
+        <div class="slider-active">
+            <!-- Single Slider -->
+            <div class="single-slider slider-height2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-8 col-lg-11 col-md-12">
+                            <div class="hero__caption hero__caption2">
+                                <h1 data-animation="bounceIn" data-delay="0.2s">About us</h1>
+                                <!-- breadcrumb Start-->
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a th:href="@{/home}">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="#">About</a></li>
+                                    </ol>
+                                </nav>
+                                <!-- breadcrumb End -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="services-area">
+        <div class="container">
+            <div class="row justify-content-sm-center">
+                <div class="col-lg-4 col-md-6 col-sm-8">
+                    <div class="single-services mb-30" style="display: flex; align-items: center;">
+                        <div class="features-icon">
+                            <img th:src="@{/assets/img/icon/icon1.svg}" alt="">
+                        </div>
+                        <div class="features-caption">
+                            <h3>Quality course</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-8">
+                    <div class="single-services mb-30" style="display: flex; align-items: center;">
+                        <div class="features-icon">
+                            <img th:src="@{/assets/img/icon/icon2.svg}" alt="">
+                        </div>
+                        <div class="features-caption">
+                            <h3>Reputable tutoring</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-8">
+                    <div class="single-services mb-30" style="display: flex; align-items: center;">
+                        <div class="features-icon">
+                            <img th:src="@{/assets/img/icon/icon3.svg}" alt="">
+                        </div>
+                        <div class="features-caption">
+                            <h3>Reasonable itinerary</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About Area-1 Start -->
+    <section class="about-area1 fix pt-10">
+        <div class="support-wrapper align-items-center">
+            <div class="left-content1">
+                <div class="about-icon">
+                    <img th:src="@{/assets/img/icon/about.svg}" alt="">
+                </div>
+                <!-- section title -->
+                <div class="section-tittle section-tittle2 mb-55">
+                    <div class="front-text">
+                        <h2>Learn new skills online with top educators</h2>
+                        <p>The automated process all your website tasks. Discover tools and
+                            techniques to engage effectively with vulnerable children and young
+                            people.</p>
+                    </div>
+                </div>
+                <div class="single-features">
+                    <div class="features-icon">
+                        <img th:src="@{/assets/img/icon/right-icon.svg}" alt="">
+                    </div>
+                    <div class="features-caption">
+                        <p>Techniques to engage effectively with vulnerable children and young people.</p>
+                    </div>
+                </div>
+                <div class="single-features">
+                    <div class="features-icon">
+                        <img th:src="@{/assets/img/icon/right-icon.svg}" alt="">
+                    </div>
+                    <div class="features-caption">
+                        <p>Join millions of people from around the world learning together.</p>
+                    </div>
+                </div>
+                <div class="single-features">
+                    <div class="features-icon">
+                        <img th:src="@{/assets/img/icon/right-icon.svg}" alt="">
+                    </div>
+                    <div class="features-caption">
+                        <p>Join millions of people from around the world learning together. Online learning is as easy
+                            and natural.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="right-content1">
+                <!-- img -->
+                <div class="right-img">
+                    <img th:src="@{/assets/img/gallery/about.png}" alt="">
+                    <div class="video-icon">
+                        <a class="popup-video btn-icon" th:href="@{https://www.youtube.com/watch?v=up68UAfH0d0}"><i
+                                class="fas fa-play"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- About Area End -->
+    <!-- About Area-3 Start -->
+    <section class="about-area3 fix">
+        <div class="about-wrapper align-items-center">
+            <div class="left-content1">
+                <div class="section-tittle section-tittle2 mb-55">
+                    <div class="front-text">
+                        <h2>Teaching is the one profession that creates all other professions.</h2>
+                        <p>The automated process all your website tasks. Discover tools and
+                            techniques to engage effectively with vulnerable children and young
+                            people.
+                        </p>
+                    </div>
+                </div>
+                <div class="single-features">
+                    <div class="features-icon">
+                        <img th:src="@{/assets/img/icon/right-icon.svg}" alt="">
+                    </div>
+                    <div class="features-caption">
+                        <p>Techniques to engage effectively with vulnerable children and young people.</p>
+                    </div>
+                </div>
+                <div class="single-features">
+                    <div class="features-icon">
+                        <img th:src="@{/assets/img/icon/right-icon.svg}" alt="">
+                    </div>
+                    <div class="features-caption">
+                        <p>Join millions of people from around the world learning together.</p>
+                    </div>
+                </div>
+                <div class="single-features">
+                    <div class="features-icon">
+                        <img th:src="@{/assets/img/icon/right-icon.svg}" alt="">
+                    </div>
+                    <div class="features-caption">
+                        <p>Join millions of people from around the world learning together. Online learning is as easy
+                            and natural.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="right-content1">
+                <!-- img -->
+                <div class="right-img">
+                    <img th:src="@{/assets/img/gallery/about2.png}" alt="">
+                    <div class="video-icon">
+                        <a class="popup-video btn-icon" th:href="@{https://www.youtube.com/watch?v=up68UAfH0d0}"><i
+                                class="fas fa-play"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- About Area End -->
+</main>
+<!-- Footer Start -->
+<footer>
+<div class="footer-wrappper footer-bg">
+    <!-- Footer Start-->
+    <div class="footer-area footer-padding">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-xl-4 col-lg-5 col-md-4 col-sm-6">
+                    <div class="single-footer-caption mb-50">
+                        <div class="single-footer-caption mb-30">
+                            <!-- logo -->
+                            <div class="footer-logo mb-25">
+                                <a href="index.html"><img src="assets/img/logo/logo2_footer.png" alt=""></a>
+                            </div>
+                            <div class="footer-tittle">
+                                <div class="footer-pera">
+                                </div>
+                            </div>
+                            <!-- social -->
+                            <div class="footer-social">
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="https://bit.ly/sai4ull"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
+                    <div class="single-footer-caption mb-50">
+                        <div class="footer-tittle">
+                            <h4>Support</h4>
+                            <ul>
+                                <li><a href="#">Design & creatives</a></li>
+                                <li><a href="#">Telecommunication</a></li>
+                                <li><a href="#">Restaurant</a></li>
+                                <li><a href="#">Programing</a></li>
+                                <li><a href="#">Architecture</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                    <div class="single-footer-caption mb-50">
+                        <div class="footer-tittle">
+                            <h4>Company</h4>
+                            <ul>
+                                <li><a href="#">Design & creatives</a></li>
+                                <li><a href="#">Telecommunication</a></li>
+                                <li><a href="#">Restaurant</a></li>
+                                <li><a href="#">Programing</a></li>
+                                <li><a href="#">Architecture</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- footer-bottom area -->
+    <div class="footer-bottom-area">
+        <div class="container">
+            <div class="footer-border">
+                <div class="row d-flex align-items-center">
+                    <div class="col-xl-12 ">
+                        <div class="footer-copy-right text-center">
+                            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                                All rights reserved
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End-->
+</div>
+</footer>
+<!-- Scroll Up -->
+<div id="back-top">
+    <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+</div>
+<!-- Footer End -->
+
+<!-- JS here -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:src="@{/assets/js/vendor/modernizr-3.6.0.min.js}"></script>
+<script th:src="@{/assets/js/vendor/jquery-1.12.4.min.js}"></script>
+<script th:src="@{/assets/js/popper.min.js}"></script>
+<script th:src="@{/assets/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
+<script th:src="@{/assets/js/slick.min.js}"></script>
+<script th:src="@{/assets/js/gijgo.min.js}"></script>
+<script th:src="@{/assets/js/jquery.nice-select.min.js}"></script>
+<script th:src="@{/assets/js/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{/assets/js/wow.min.js}"></script>
+<script th:src="@{/assets/js/main.js}"></script>
+</body>
+</html>

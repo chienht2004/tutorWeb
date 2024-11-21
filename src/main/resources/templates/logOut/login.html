@@ -1,0 +1,203 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>App Landing</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+    <!-- CSS here -->
+    <link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/slicknav.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/progressbar_barfiller.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/gijgo.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/animate.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/animated-headline.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/magnific-popup.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/fontawesome-all.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/themify-icons.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/slick.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/nice-select.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        .user-selection {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .user-selection button {
+            width: 180px;
+        }
+
+        .toggle-button {
+            padding: 10px 20px;
+            border: 2px solid #fff;
+            background-color: transparent;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            font-size: 16px;
+            margin-right: 10px;
+            border-radius: 10px;
+        }
+
+        .toggle-button.active {
+            background-color: #ff8c60;
+            color: #fff;
+        }
+
+        .toggle-button:hover {
+            background-color: #ff8c60;
+        }
+         #togglePassword {
+             color: white;
+             font-size: 20px;
+         }
+
+        #togglePassword.fa-eye-slash {
+            color: white;
+        }
+
+    </style>
+</head>
+
+<body>
+<!-- ? Preloader Start -->
+<div id="preloader-active">
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="preloader-inner position-relative">
+            <div class="preloader-circle"></div>
+            <div class="preloader-img pere-text">
+                <img th:src="@{/assets/img/logo/loder.png}" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Preloader Start-->
+
+<main class="login-body" style="background-image: url(/assets/img/login.jpg); background-size: cover">
+    <!-- Login Admin -->
+    <form class="form-default" th:action="@{/login}" method="POST">
+        <div class="login-form">
+            <h2>Login Here</h2>
+            <div th:if="${message != null}" style="color: green;" th:text="${message}"></div>
+            <div th:if="${error != null}" style="color: red;" th:text="${error}"></div>
+            <div th:if="${param.error}" style="color: red;">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</div>
+            <div class="form-input">
+                <label>UserName or Email</label>
+                <input type="text" name="username" placeholder="UserName or Email">
+            </div>
+            <div class="form-input" style="position: relative;">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Password" id="passwordField">
+                <i class="fas fa-eye" id="togglePassword" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;"></i>
+            </div>
+            <input type="checkbox" name="remember-me"> <label style="color: white;">Remember me</label>
+            <div class="form-input pt-30" style="padding: 15px 0 0 0;">
+                <input type="submit" name="submit" value="login">
+            </div>
+            <div style="display: flex; justify-content: right;">
+                <a th:href="@{/register}" class="forget" style="display: block; margin-right: 32px;">Register</a>
+            </div>
+        </div>
+    </form>
+
+
+</main>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Tự động điền username và password từ localStorage nếu có
+        const savedUsername = localStorage.getItem("savedUsername");
+        const savedPassword = localStorage.getItem("savedPassword");
+        if (savedUsername) {
+            document.querySelector('input[name="username"]').value = savedUsername;
+        }
+        if (savedPassword) {
+            document.querySelector('input[name="password"]').value = savedPassword;
+        }
+    });
+
+    // Lưu username và password vào localStorage khi nhấn submit và checkbox "Remember me" được chọn
+    document.querySelector('form').addEventListener('submit', function() {
+        const rememberMeChecked = document.querySelector('input[name="remember-me"]').checked;
+        const username = document.querySelector('input[name="username"]').value;
+        const password = document.querySelector('input[name="password"]').value;
+
+        if (rememberMeChecked) {
+            localStorage.setItem("savedUsername", username);
+            localStorage.setItem("savedPassword", password);
+        } else {
+            localStorage.removeItem("savedUsername");
+            localStorage.removeItem("savedPassword");
+        }
+    });
+</script>
+
+<script>
+    document.getElementById('togglePassword').addEventListener('click', function() {
+        const passwordField = document.getElementById('passwordField');
+        const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordField.setAttribute('type', type);
+
+        this.classList.toggle('fa-eye-slash');
+    });
+</script>
+
+
+
+<script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
+<!-- Jquery, Popper, Bootstrap -->
+<script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="./assets/js/popper.min.js"></script>
+<script src="./assets/js/bootstrap.min.js"></script>
+<!-- Jquery Mobile Menu -->
+<script src="./assets/js/jquery.slicknav.min.js"></script>
+
+<!-- Video bg -->
+<script src="./assets/js/jquery.vide.js"></script>
+
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="./assets/js/owl.carousel.min.js"></script>
+<script src="./assets/js/slick.min.js"></script>
+<!-- One Page, Animated-HeadLin -->
+<script src="./assets/js/wow.min.js"></script>
+<script src="./assets/js/animated.headline.js"></script>
+<script src="./assets/js/jquery.magnific-popup.js"></script>
+
+<!-- Date Picker -->
+<script src="./assets/js/gijgo.min.js"></script>
+<!-- Nice-select, sticky -->
+<script src="./assets/js/jquery.nice-select.min.js"></script>
+<script src="./assets/js/jquery.sticky.js"></script>
+<!-- Progress -->
+<script src="./assets/js/jquery.barfiller.js"></script>
+
+<!-- counter , waypoint,Hover Direction -->
+<script src="./assets/js/jquery.counterup.min.js"></script>
+<script src="./assets/js/waypoints.min.js"></script>
+<script src="./assets/js/jquery.countdown.min.js"></script>
+<script src="./assets/js/hover-direction-snake.min.js"></script>
+
+<!-- contact js -->
+<script src="./assets/js/contact.js"></script>
+<script src="./assets/js/jquery.form.js"></script>
+<script src="./assets/js/jquery.validate.min.js"></script>
+<script src="./assets/js/mail-script.js"></script>
+<script src="./assets/js/jquery.ajaxchimp.min.js"></script>
+
+<!-- Jquery Plugins, main Jquery -->
+<script src="./assets/js/plugins.js"></script>
+<script src="./assets/js/main.js"></script>
+
+</body>
+
+</html>

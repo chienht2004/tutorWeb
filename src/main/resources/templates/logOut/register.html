@@ -1,0 +1,276 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>App Landing</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/assets/img/favicon.ico}">
+
+    <!-- CSS here -->
+    <link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/slicknav.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/progressbar_barfiller.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/gijgo.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/animate.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/animated-headline.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/magnific-popup.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/fontawesome-all.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/themify-icons.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/slick.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/nice-select.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .user-selection {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .user-selection button {
+            width: 180px;
+        }
+
+        .toggle-button {
+            padding: 10px 20px;
+            border: 2px solid #fff;
+            background-color: transparent;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            font-size: 16px;
+            margin-right: 10px;
+            border-radius: 10px;
+        }
+
+        .toggle-button.active {
+            background-color: #ff8c60;
+            color: #fff;
+        }
+
+        .toggle-button:hover {
+            background-color: #ff8c60;
+        }
+    </style>
+</head>
+
+<body>
+<!-- ? Preloader Start -->
+<div id="preloader-active">
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="preloader-inner position-relative">
+            <div class="preloader-circle"></div>
+            <div class="preloader-img pere-text">
+                <img th:src="@{/assets/img/logo/loder.png}" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Preloader Start-->
+
+<main class="login-body" style="background-image: url(/assets/img/login.jpg); background-size: cover;">
+    <!-- Register Form -->
+    <form class="form-default" th:action="@{/register}" method="post" onsubmit="return validateRegistration()">
+        <div class="login-form">
+            <div class="user-selection">
+                <button id="student" class="toggle-button active" type="button">Student</button>
+                <button id="tutor" class="toggle-button" type="button">Tutor</button>
+            </div>
+            <input type="hidden" name="userType" id="userType" value="ROLE_STUDENT">
+            <h2>Registration Here</h2>
+
+            <div class="form-input">
+                <label>Full Name</label>
+                <input type="text" name="fullName" maxlength="200" placeholder="Full Name" required>
+            </div>
+            <div class="form-input">
+                <label>Username</label>
+                <input type="text" name="name" maxlength="100" id="username" placeholder="Username" required>
+            </div>
+            <div class="form-input">
+                <label for="email">Email Address</label>
+                <input type="email" name="email" maxlength="200" id="email" placeholder="Email Address" required>
+            </div>
+            <div class="form-input">
+                <label for="password">Password</label>
+                <input type="password" name="password" maxlength="100" id="password" placeholder="Password" required oninput="checkPasswordStrength()">
+            </div>
+            <div class="progress mt-2" id="progressContainer" style="display: none;">
+                <div id="strengthBar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <div id="strengthMessage" class="mt-1 text-muted"></div>
+            <div class="form-input">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" required>
+                <p id="passwordError" style="color: red; display: none;">Passwords do not match!</p>
+            </div>
+            <div class="form-input pt-30">
+                <input type="submit" name="submit" value="Registration">
+            </div>
+            <a th:href="@{/login}" style="font-size: 18px" class="registration">Login</a>
+        </div>
+    </form>
+
+</main>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    function checkPasswordStrength() {
+        const password = document.getElementById("password").value;
+        const progressContainer = document.getElementById("progressContainer");
+        const strengthBar = document.getElementById("strengthBar");
+        const strengthMessage = document.getElementById("strengthMessage");
+        let strength = 0;
+
+        if (password.length === 0) {
+            progressContainer.style.display = "none";
+            strengthBar.style.width = "0%";
+            strengthBar.className = "progress-bar";
+            strengthMessage.textContent = "";
+            return;
+        }
+
+        progressContainer.style.display = "flex";
+
+        if (password.length >= 8) strength += 1;
+        if (/[A-Z]/.test(password)) strength += 1;
+        if (/[0-9]/.test(password)) strength += 1;
+        if (/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) strength += 1;
+
+        switch (strength) {
+            case 1:
+                strengthBar.style.width = "25%";
+                strengthBar.className = "progress-bar bg-danger";
+                strengthMessage.textContent = "Weak";
+                break;
+            case 2:
+                strengthBar.style.width = "50%";
+                strengthBar.className = "progress-bar bg-warning";
+                strengthMessage.textContent = "Moderate";
+                break;
+            case 3:
+                strengthBar.style.width = "75%";
+                strengthBar.className = "progress-bar bg-info";
+                strengthMessage.textContent = "Good";
+                break;
+            case 4:
+                strengthBar.style.width = "100%";
+                strengthBar.className = "progress-bar bg-success";
+                strengthMessage.textContent = "Strong";
+                break;
+        }
+    }
+</script>
+<script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
+<!-- Jquery, Popper, Bootstrap -->
+<script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="./assets/js/popper.min.js"></script>
+<script src="./assets/js/bootstrap.min.js"></script>
+<!-- Jquery Mobile Menu -->
+<script src="./assets/js/jquery.slicknav.min.js"></script>
+
+<!-- Video bg -->
+<script src="./assets/js/jquery.vide.js"></script>
+
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="./assets/js/owl.carousel.min.js"></script>
+<script src="./assets/js/slick.min.js"></script>
+<!-- One Page, Animated-HeadLin -->
+<script src="./assets/js/wow.min.js"></script>
+<script src="./assets/js/animated.headline.js"></script>
+<script src="./assets/js/jquery.magnific-popup.js"></script>
+
+<!-- Date Picker -->
+<script src="./assets/js/gijgo.min.js"></script>
+<!-- Nice-select, sticky -->
+<script src="./assets/js/jquery.nice-select.min.js"></script>
+<script src="./assets/js/jquery.sticky.js"></script>
+<!-- Progress -->
+<script src="./assets/js/jquery.barfiller.js"></script>
+
+<!-- counter , waypoint,Hover Direction -->
+<script src="./assets/js/jquery.counterup.min.js"></script>
+<script src="./assets/js/waypoints.min.js"></script>
+<script src="./assets/js/jquery.countdown.min.js"></script>
+<script src="./assets/js/hover-direction-snake.min.js"></script>
+
+<!-- contact js -->
+<script src="./assets/js/contact.js"></script>
+<script src="./assets/js/jquery.form.js"></script>
+<script src="./assets/js/jquery.validate.min.js"></script>
+<script src="./assets/js/mail-script.js"></script>
+<script src="./assets/js/jquery.ajaxchimp.min.js"></script>
+
+<!-- Jquery Plugins, main Jquery -->
+<script src="./assets/js/plugins.js"></script>
+<script src="./assets/js/main.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script th:inline="javascript">
+    const existingUsers = /*[[${listUser}]]*/ [];
+
+    function validateRegistration() {
+        const username = document.getElementById('username').value;
+        const email = document.getElementById('email').value;
+        const usernameExists = existingUsers.some(user => user.userName === username);
+        if (usernameExists) {
+            alert("Username already exists. Please choose another one.");
+            return false;
+        }
+
+        const emailExists = existingUsers.some(user => user.email === email);
+        if (emailExists) {
+            alert("Email already exists. Please choose another one.");
+            return false;
+        }
+
+        return true;
+    }
+</script>
+<script>
+    const studentButton = document.getElementById('student');
+    const tutorButton = document.getElementById('tutor');
+    const userTypeInput = document.getElementById('userType');
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+    const passwordError = document.getElementById('passwordError');
+
+    studentButton.addEventListener('click', () => {
+        studentButton.classList.add('active');
+        tutorButton.classList.remove('active');
+        userTypeInput.value = 'ROLE_STUDENT';
+    });
+
+    tutorButton.addEventListener('click', () => {
+        tutorButton.classList.add('active');
+        studentButton.classList.remove('active');
+        userTypeInput.value = 'ROLE_TUTOR';
+    });
+
+    confirmPasswordInput.addEventListener('input', () => {
+        if (confirmPasswordInput.value !== passwordInput.value) {
+            passwordError.style.display = 'block';
+        } else {
+            passwordError.style.display = 'none';
+        }
+    });
+
+    function validatePassword() {
+        if (confirmPasswordInput.value !== passwordInput.value) {
+            passwordError.style.display = 'block';
+            return false;
+        }
+        return true;
+    }
+
+</script>
+
+</body>
+
+</html>
